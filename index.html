@@ -1,0 +1,36 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Wordle Solver</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css?version=1.3" />
+  </head>
+  <body>
+    <div id="root">
+      <h1 style="text-align: center">Wordle Solver</h1>
+      <div class="wordContainer" id="wordContainer"></div>
+      <div class="error" id="error"></div>
+      <div class="actions">
+        <div class="suggestBox">
+          <button onclick="useGenerator('new')">new guess</button>
+          <button onclick="useGenerator('eliminate')">Eliminate</button>
+        </div>
+        <div class="submitBox">
+          <button onclick="submitStatus()">finalize</button>
+        </div>
+      </div>
+      <div class="solutions">
+        <div id="nSolutions"></div>
+        <div id="solutionsList"></div>
+      </div>
+      <div class="reset">
+        <button onclick="reset()">reset</button>
+      </div>
+      <div class="keyboard" id="keyboard"></div>
+    </div>
+    <script src="words.js"></script>
+    <script src="keyboard.js"></script>
+    <script src="generators.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
