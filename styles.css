@@ -1,0 +1,139 @@
+body {
+    display: flex;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #root {
+    width: 100%;
+    background-color: rgb(211, 211, 211);
+    padding: 2em;
+    max-width: 900px;
+    overflow: auto;
+  }
+  button {
+    padding: 1em;
+    background-color: cornflowerblue;
+    border-radius: 5px;
+    border: none;
+    text-transform: uppercase;
+    font-size: medium;
+  }
+  .wordRow {
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    column-gap: 1em;
+  }
+  .letter {
+    background-color: white;
+    font-size: 30px;
+    font-family: monospace, Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    line-height: 2em;
+    user-select: none;
+  }
+  .notFound {
+    background-color: white;
+  }
+  .partial {
+    background-color: burlywood;
+  }
+  .correct {
+    background-color: greenyellow;
+  }
+  .noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+  }
+  .actions {
+    padding: 1em;
+  }
+  .solutions {
+    overflow-wrap: break-word;
+    padding: 1em;
+  }
+  .suggestBox {
+    display: flex;
+    column-gap: 1em;
+    row-gap: 1em;
+  }
+  .reset {
+    padding: 1em;
+  }
+  .keyboard {
+    display: flex;
+    row-gap: 4px;
+    flex-direction: column;
+    min-width: 500px;
+  }
+  .keyboard-row {
+    display: flex;
+    column-gap: 4px;
+    justify-content: center;
+  }
+  .keyboard-letter {
+    font-family: monospace, Arial, Helvetica, sans-serif;
+    font-size: large;
+    text-transform: uppercase;
+    padding: 1em 1em;
+  }
+  .unknown {
+    background-color: rgb(177, 177, 177);
+  }
+  .partial {
+    background-color: rgb(245, 223, 99);
+  }
+  .correct {
+    background-color: rgb(87, 204, 77);
+  }
+  .excluded {
+    background-color: rgb(94, 94, 94);
+  }
+  .error {
+    color: red;
+  }
+  .hidden {
+    display: none;
+  }
+  @media screen and (max-width: 900px) {
+    #root {
+      max-width: 600px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    button {
+      font-size: small;
+    }
+    #root {
+      max-width: 100%;
+      padding: 1em;
+    }
+    .wordRow {
+      padding: 0.5em 0em;
+    }
+    .actions {
+      padding: 0em;
+    }
+    .solutions {
+      padding: 0.5em 0em;
+    }
+    .reset {
+      padding: 0em;
+    }
+    .keyboard {
+      min-width: auto;
+      padding: 0.5em 0em;
+    }
+    .keyboard-letter {
+      font-size: medium;
+      padding: 0.5em;
+    }
+  }
