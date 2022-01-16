@@ -390,6 +390,7 @@ const submitOddsRow = () => {
 const inputOnselect = (ev) => {
     console.log(ev)
     console.log(ev.path[0])
+    state.
     ev.path[0].focus()
 }
 
