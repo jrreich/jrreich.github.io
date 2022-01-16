@@ -184,13 +184,9 @@ const input = (char) => {
             updateUI(state);
             }
         } else if (char === "enter") {
-            // only allow submit if current odds_input is length 5
-            if (odds_input.length > 2) {
             submitOddsRow();
-            }
-        } 
-        
-            else if (char === "tab") {
+            
+        } else if (char === "tab") {
             // add check that input is long enough
             if (odds_input.length > 2) {
                 // if in first column, add 1 to index
@@ -252,195 +248,44 @@ const submitOddsRow = () => {
     // 1. evaluate current odds row
     const index = state.currentRowIndex
     const oddsOut = checkOddsRow(state.currentOddsRow)
-    makeNoVigOddsRow(index, oddsOut)
-    
-    // const newState = checkSubmission(state);
-    
-    // const { win, error } = newState;
-    // if (Object.keys(newState).length === 0) {
-        //     // checkSubmission didn't run becuase state wasn't valid to run
-        //     console.debug("nothing was done");
-        // } else if (error) {
-            //     // if error, show error, but don't do anything else
-            //     state.error = error;
-            //     updateUI(state);
-            // } else if (win) {
-                //     // if win, show win, don't do anything else
-                //     document.getElementById("solutions").innerHTML = `Congratulations!!`;
-                // } else {
-                    //     // state checks out
-                    
-                    // 3. reset most of state, but keep the results we just found
-                    
-                    // save odds row  
-                    state.oddsInputs[index] = {"oddsRow": state.currentOddsRow, "nvo": oddsOut[0]}
-                    parlayOdds = parlayOdds *  oddsOut[0]/100
-                    updateParleyOdds(parlayOdds)
+    console.log(oddsOut)
+    if (~Object.is(oddsOut[0], NaN)) {
+        makeNoVigOddsRow(index, oddsOut)
+        state.oddsInputs[index] = {"oddsRow": state.currentOddsRow, "nvo": oddsOut[0]}
+        parlayOdds = parlayOdds *  oddsOut[0]/100
+        updateParleyOdds(parlayOdds)
 
-    // Update ParleyOdds
-    // console.log(state)
-    // state = { ...initialState, 
-    //     // ...state.currentOddsRow
-
-    //     "currentOddsRow": state.currentOddsRow,
-    //     "oddsInputs": state.oddsInputs.push(state.currentOddsRow)
-    //     // ...newState, 
-    //     // currentRowIndex: state.currentRowIndex 
-    // };
-
-    // 2. make a new row (this bumps state.currentRowIndex)
-    state.currentRowIndex += 1;
-    makeNewRow(state.currentRowIndex);
-    // 4. update UI to match new state
-    // updateUI(state);
-    // 5. update currentRow
-
-    // }
-};
+        // 2. make a new row (this bumps state.currentRowIndex)
+        state.currentRowIndex += 1;
+        makeNewRow(state.currentRowIndex);
+    };
+}
   
 
-// const updateWordList = (wordList, excludedLetters, solution, wrongSpot) => {
-//   // helper function to prune down word list based on latest rules
-//   let newList = [];
-//   wordList.forEach((word) => {
-//     // innocent until proven guilty
-//     let pass = true;
-//     [...word].forEach((char, index) => {
-//       if (excludedLetters.includes(char)) {
-//         // cannot include word if contains a letter we know doesn't exist
-//         pass = false;
-//       } else if (solution[index] && solution[index] !== char) {
-//         // cannot include word if the letters don't match our known right spots
-//         pass = false;
-//       }
-//     });
-//     // has to also include all wrong spot characters
-//     Object.keys(wrongSpot).forEach((char) => {
-//       if (!word.includes(char)) {
-//         // if there exists a character that must be in the word but is not in this word, fail
-//         pass = false;
-//       }
-//       // cannot be a word where we already know the letter is in the wrong spot
-//       // all the indicies that are wrong for this letter
-//       const indicies = wrongSpot[char];
-//       indicies.forEach((index) => {
-//         if (word[index] === char) {
-//           // word has this character at this index, fail
-//           pass = false;
-//         }
-//       });
-//     });
-//     if (pass) {
-//       newList.push(word);
-//     }
-//   });
-//   return newList;
-// };
-
-
-
-// const checkSubmission = (s) => {
-//   // will check the submission state
-//   // if current word has all 5 letters, we can check it
-//   // will add
-//   if (s?.currentOddsRow?.length < 5) {
-//     var newState = JSON.parse(JSON.stringify(s));
-//     var {
-//       currentOddsRow,
-//       letterScore,
-//       letterStates: { excludedLetters, wrongSpot, solution },
-//       wordList,
-//     } = newState;
-//     var win = true;
-//     var error = false;
-//     // iterate over all letters in the word, make sure they make sense
-//     for (var i = 0; i < 2; i++) {
-//       const letter = currentOddsRow[i];
-//       const status = letterScore[i];
-//       if (status === 0) {
-//         // letter not correct
-//         win = false;
-//         if (
-//           solution.includes(letter) ||
-//           Object.keys(wrongSpot).includes(letter)
-//         ) {
-//           // we were told previously that this letter is correct, now saying not found
-//           error = `${letter} marked as incorrect, but was previously indicated to be in the word`;
-//         } else if (!excludedLetters.includes(letter)) {
-//           // first time seeing this character be excluded
-//           excludedLetters.push(letter);
-//         //   possibleLetters = possibleLetters.filter((item) => item != letter);
-//         }
-//       } else {
-//         // letter is some kind of correct
-//         if (excludedLetters.includes(letter)) {
-//           // we were told previously this letter wasn't in word, but now saying it is
-//           error = `${letter} was previously in the word. Cannot be missing now!`;
-//         }
-//         if (status === 2) {
-//           // correct letter in correct spot
-//           if (solution[i] && solution[i] !== letter) {
-//             error = `${solution[i]} was previously said to be at position ${i} in word, now saying ${letter}`;
-//           }
-//           solution[i] = letter;
-//         } else {
-//           // correct letter in wrong spot
-//           if (!wrongSpot[letter]) {
-//             // if we don't know about this letter yet, add it to wrongSpot list
-//             wrongSpot[letter] = [i];
-//           } else if (!wrongSpot[letter].includes(i)) {
-//             // we know the letter but found a new spot it doesn't belong
-//             wrongSpot[letter].push(i);
-//           }
-//           win = false;
-//         }
-//       }
-//     }
-//     if (!error && !win) {
-//       // check if there are solutions left
-//       wordList = updateWordList(wordList, excludedLetters, solution, wrongSpot);
-//       if (wordList?.length === 0) {
-//         error = "No more solutions left!";
-//       }
-//     }
-//     return {
-//       win: win,
-//       error: error,
-//       letterStates: {
-//         excludedLetters: excludedLetters,
-//         possibleLetters: possibleLetters,
-//         wrongSpot: wrongSpot,
-//         solution: solution,
-//       },
-//       wordList: wordList,
-//     };
-//   } 
-// };
-
-
-// const inputOnselect = (ev) => {
-//     console.log(ev)
-//     console.log(ev.path[0])
-//     ev.path[0].focus()
-// }
 
 document.onkeydown = (e) => {
   // magic
-    alert(e.key)
-  var char = "";
-  if (/^([0-9])/.test(e.key) && e.key.length === 1) {
-    // single a-z or A-Z character
-    char = e.key;
-  } else if (e.key === "Backspace") {
-    char = "back";
-  } else if (e.key === "Enter") {
-    char = "enter";
-  } else if (e.key === 'Tab') {
-      char = "tab";
-  } else if (e.key === '-') {
-      char = "-"
-  }
-  input(char);
+
+    var char = "";
+    if (/^([0-9])/.test(e.key) && e.key.length === 1) {
+        // single a-z or A-Z character
+        char = e.key;
+    } else if (e.key === "Backspace") {
+        char = "back";
+    } else if (e.key === "Enter") {
+        if (e.path[0].id === "americanOddsInput") {
+            handleAmOddsInputChange()
+        } else {
+            char = "enter";
+            }
+        // char = "enter";
+
+    } else if (e.key === 'Tab') {
+        char = "tab";
+    } else if (e.key === '-') {
+        char = "-"
+    }
+    input(char);
 };
 
 // reset application
