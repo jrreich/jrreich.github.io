@@ -215,9 +215,7 @@ const submitOddsRow = () => {
     
     // 1. evaluate current odds row
     const index = state.currentRowIndex
-    console.log(index)
     const oddsOut = checkOddsRow(state.currentOddsRow)
-    console.log(oddsOut)
     makeNoVigOddsRow(index, oddsOut)
     
     // const newState = checkSubmission(state);
