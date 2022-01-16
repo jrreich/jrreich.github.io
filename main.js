@@ -236,18 +236,15 @@ const handleAmOddsInputChange = () => {
     var impliedPercentElement = document.getElementById("impliedPercent")
     var evOutputElement = document.getElementById("evOutput")
     const amOddsInput = americanOddsInputElement.value 
-    console.log(amOddsInput)
+
     // Calculate probabilities
     const probs = amerOddsToProb(amOddsInput)
-    console.log(probs) 
     impliedPercentElement.innerHTML = (probs.percentOdds * 100).toFixed(1)
 
     const ev = evCalc(parlayOdds, probs.profitOn100)
     evOutputElement.innerHTML = ev.toFixed(2) 
 
     
-
-    console.log('hey O ')
 }
 const submitOddsRow = () => {
     // all submitting actions
@@ -429,7 +426,7 @@ const submitOddsRow = () => {
 
 document.onkeydown = (e) => {
   // magic
-
+    alert(e.key)
   var char = "";
   if (/^([0-9])/.test(e.key) && e.key.length === 1) {
     // single a-z or A-Z character
