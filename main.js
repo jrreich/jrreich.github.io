@@ -104,6 +104,7 @@ const makeNewRow = (index) => {
         newOddsInput.classList.add("oddsInput");
         newOddsInput.setAttribute("type", "number")
         newOddsInput.setAttribute("pattern", "[0-9]*")
+        newOddsInput.addEventListener("click", inputOnselect)
         // newOddsInput.setAttribute("onclick", `changeScore(${i})`);
         newOddsInput.setAttribute("id", `row-${index}-oddsInput-${i}`);
         newRow.appendChild(newOddsInput);
@@ -386,7 +387,11 @@ const submitOddsRow = () => {
 // };
 
 
-
+const inputOnselect = (ev) => {
+    console.log(ev)
+    console.log(ev.path[0])
+    ev.path[0].focus()
+}
 
 document.onkeydown = (e) => {
   // magic
