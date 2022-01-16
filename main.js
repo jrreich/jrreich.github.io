@@ -6,7 +6,7 @@ const initialState = {
   currentOddsIndex: 0,
   currentOddsRow: ["", ""],
 
-  oddsInputs: [["", ""]],
+  oddsInputs: [{"oddsRow": ["", ""], "nvo": 0}],
 
 };
 
@@ -74,7 +74,7 @@ const getOddsRowElement = (i) => {
     return oddsRow
 }
 
-const makeNoVigOdds = (index, nvoArray) => {
+const makeNoVigOddsRow = (index, nvoArray) => {
     index = state.currentRowIndex
     const nvoString = `${nvoArray[0].toFixed(1)}`
     const oddsRowElement = getOddsRowElement(index)
@@ -94,7 +94,6 @@ const makeNoVigOdds = (index, nvoArray) => {
 const makeNewRow = (index) => {
 //   state.currentRowIndex = Number.isInteger(index) ? index : state.currentRowIndex + 1;
     // add check to make sure you can add a new row
-    // state.oddsInputs.push(state.currentOddsRow);
     state.currentOddsRow = ["", ""];
     state.currentOddsIndex = 0; 
     var newRow = document.createElement("div");
@@ -103,6 +102,8 @@ const makeNewRow = (index) => {
     for (var i = 0; i < 2; i++) {
         var newOddsInput = document.createElement("div");
         newOddsInput.classList.add("oddsInput");
+        newOddsInput.setAttribute("type", "number")
+        newOddsInput.setAttribute("pattern", "[0-9]*")
         // newOddsInput.setAttribute("onclick", `changeScore(${i})`);
         newOddsInput.setAttribute("id", `row-${index}-oddsInput-${i}`);
         newRow.appendChild(newOddsInput);
@@ -200,35 +201,51 @@ const input = (char) => {
     }
   };
 
+
+const parleyOddsReducer = (sum, element) => {
+    console.log(element.nvo)
+    return sum * element.nvo 
+
+}
+
+const makeParleyOdds = () => {
+    const parlayOdds = state.oddsInputs.reduce(parleyOddsReducer)
+    console.log(parlayOdds)
+    return parlayOdds
+}
+
 const submitOddsRow = () => {
     // all submitting actions
-
+    
     // 1. evaluate current odds row
     const index = state.currentRowIndex
     console.log(index)
     const oddsOut = checkOddsRow(state.currentOddsRow)
     console.log(oddsOut)
-    makeNoVigOdds(index, oddsOut)
+    makeNoVigOddsRow(index, oddsOut)
+    
     // const newState = checkSubmission(state);
     
     // const { win, error } = newState;
     // if (Object.keys(newState).length === 0) {
-    //     // checkSubmission didn't run becuase state wasn't valid to run
-    //     console.debug("nothing was done");
-    // } else if (error) {
-    //     // if error, show error, but don't do anything else
-    //     state.error = error;
-    //     updateUI(state);
-    // } else if (win) {
-    //     // if win, show win, don't do anything else
-    //     document.getElementById("solutions").innerHTML = `Congratulations!!`;
-    // } else {
-    //     // state checks out
-
-    // 3. reset most of state, but keep the results we just found
-    
-    // save odds row  
-    state.oddsInputs[index] = state.currentOddsRow
+        //     // checkSubmission didn't run becuase state wasn't valid to run
+        //     console.debug("nothing was done");
+        // } else if (error) {
+            //     // if error, show error, but don't do anything else
+            //     state.error = error;
+            //     updateUI(state);
+            // } else if (win) {
+                //     // if win, show win, don't do anything else
+                //     document.getElementById("solutions").innerHTML = `Congratulations!!`;
+                // } else {
+                    //     // state checks out
+                    
+                    // 3. reset most of state, but keep the results we just found
+                    
+                    // save odds row  
+                    state.oddsInputs[index] = {"oddsRow": state.currentOddsRow, "nvo": oddsOut[0]}
+                    const parlayOdds = makeParleyOdds()
+                    console.log(parlayOdds)
     // console.log(state)
     // state = { ...initialState, 
     //     // ...state.currentOddsRow
