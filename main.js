@@ -12,14 +12,19 @@ const initialState = {
 
 const amerOddsToProb = (amerOdds) => {
     let decimalOdds = 0 
+    let fraction = 0 
     if (amerOdds < 0) {
-        decimalOdds = -100/amerOdds + 1;
+        fraction = -100/amerOdds
+        decimalOdds = fraction + 1;
     } else {
-        decimalOdds = amerOdds/100 + 1;
+        fraction = amerOdds/100 
+        decimalOdds = fraction + 1;
     }
     const percentOdds = 1/decimalOdds; 
+    const profitOn100 = 100 * fraction
     return {"decimalOdds": decimalOdds, 
-            "percentOdds": percentOdds}
+            "percentOdds": percentOdds,
+            "profitOn100": profitOn100}
 
 }
 
@@ -76,7 +81,7 @@ const getOddsRowElement = (i) => {
 
 const makeNoVigOddsRow = (index, nvoArray) => {
     index = state.currentRowIndex
-    const nvoString = `${nvoArray[0].toFixed(1)}`
+    const nvoString = `${nvoArray[0].toFixed(4)}`
     const oddsRowElement = getOddsRowElement(index)
     if (oddsRowElement) {
         var newNVO = document.createElement("div");
@@ -214,16 +219,22 @@ const input = (char) => {
 
   const updateParleyOdds = (newParlayOdds) => {
         var parlayOddsElement = document.getElementById("parlayOdds")
-        parlayOddsElement.innerHTML = (newParlayOdds * 100).toFixed(1)
+        parlayOddsElement.innerHTML = (newParlayOdds * 100).toFixed(4)
 
   }
 
-  let parlayOdds = 1 
+let parlayOdds = 1 
 
+
+const evCalc = (fairWinProb, profOn100) => {
+  const ev = fairWinProb*profOn100 - (1-fairWinProb)* 100; 
+  return ev
+}
 const handleAmOddsInputChange = () => {
     // get value of AmericanOddsInput
     var americanOddsInputElement = document.getElementById("americanOddsInput")
     var impliedPercentElement = document.getElementById("impliedPercent")
+    var evOutputElement = document.getElementById("evOutput")
     const amOddsInput = americanOddsInputElement.value 
     console.log(amOddsInput)
     // Calculate probabilities
@@ -231,6 +242,10 @@ const handleAmOddsInputChange = () => {
     console.log(probs) 
     impliedPercentElement.innerHTML = (probs.percentOdds * 100).toFixed(1)
 
+    const ev = evCalc(parlayOdds, probs.profitOn100)
+    evOutputElement.innerHTML = ev.toFixed(2) 
+
+    
 
     console.log('hey O ')
 }
