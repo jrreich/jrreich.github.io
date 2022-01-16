@@ -81,7 +81,7 @@ const getOddsRowElement = (i) => {
 
 const makeNoVigOddsRow = (index, nvoArray) => {
     index = state.currentRowIndex
-    const nvoString = `${nvoArray[0].toFixed(4)}`
+    const nvoString = `${nvoArray[0].toFixed(2)}`
     const oddsRowElement = getOddsRowElement(index)
     if (oddsRowElement) {
         var newNVO = document.createElement("div");
@@ -219,7 +219,7 @@ const input = (char) => {
 
   const updateParleyOdds = (newParlayOdds) => {
         var parlayOddsElement = document.getElementById("parlayOdds")
-        parlayOddsElement.innerHTML = (newParlayOdds * 100).toFixed(4)
+        parlayOddsElement.innerHTML = (newParlayOdds * 100).toFixed(2)
 
   }
 

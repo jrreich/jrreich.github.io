@@ -19,14 +19,14 @@ body {
     font-size: medium;
   }
   .oddsRow {
-    padding: 1em;
+    padding: .5em;
     display: flex;
     align-items: center;
     column-gap: 1em;
   }
   .noVigOdds {
     background-color: gray;
-    font-size: 30px;
+    font-size: 20px;
     font-family: monospace, Arial, Helvetica, sans-serif;
     text-transform: uppercase;
     width: 4em;
@@ -37,10 +37,10 @@ body {
   }
   .oddsInput {
     background-color: white;
-    font-size: 30px;
+    font-size: 20px;
     font-family: monospace, Arial, Helvetica, sans-serif;
     text-transform: uppercase;
-    width: 6em;
+    width: 3em;
     height: 2em;
     text-align: center;
     line-height: 2em;
@@ -79,23 +79,7 @@ body {
   .reset {
     padding: 1em;
   }
-  .keyboard {
-    display: flex;
-    row-gap: 4px;
-    flex-direction: column;
-    min-width: 500px;
-  }
-  .keyboard-row {
-    display: flex;
-    column-gap: 4px;
-    justify-content: center;
-  }
-  .keyboard-letter {
-    font-family: monospace, Arial, Helvetica, sans-serif;
-    font-size: large;
-    text-transform: uppercase;
-    padding: 1em 1em;
-  }
+
   .unknown {
     background-color: rgb(177, 177, 177);
   }
@@ -138,13 +122,5 @@ body {
     }
     .reset {
       padding: 0em;
-    }
-    .keyboard {
-      min-width: auto;
-      padding: 0.5em 0em;
-    }
-    .keyboard-letter {
-      font-size: medium;
-      padding: 0.5em;
     }
   }
