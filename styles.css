@@ -24,6 +24,17 @@ body {
     align-items: center;
     column-gap: 1em;
   }
+  .noVigOdds {
+    background-color: gray;
+    font-size: 30px;
+    font-family: monospace, Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    width: 4em;
+    height: 2em;
+    text-align: center;
+    line-height: 2em;
+    user-select: none;
+  }
   .oddsInput {
     background-color: white;
     font-size: 30px;

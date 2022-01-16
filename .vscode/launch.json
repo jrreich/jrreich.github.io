@@ -5,11 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
+            "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "name": "Launch Chrome against file",
+            "file": "${workspaceFolder}",
+            // "file": "wsl.localhost/Ubuntu/home/jreich/jrreich.github.io/index.html",
+            // "localRoot": "${workspaceFolder}",
+            // "file": "${command:extension.vscode-wsl-workspaceFolder}",
+            // "file": "file://wsl.localhost/Ubuntu/home/jreich/jrreich.github.io/index.html",
+            // "url": "file://wsl.localhost/Ubuntu/home/jreich/jrreich.github.io/index.html",
+            // "browserLaunchLocation": "ui",
+            // "remoteRoot"
         }
     ]
 }
