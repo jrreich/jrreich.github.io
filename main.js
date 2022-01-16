@@ -387,11 +387,11 @@ const submitOddsRow = () => {
 // };
 
 
-const inputOnselect = (ev) => {
-    console.log(ev)
-    console.log(ev.path[0])
-    ev.path[0].focus()
-}
+// const inputOnselect = (ev) => {
+//     console.log(ev)
+//     console.log(ev.path[0])
+//     ev.path[0].focus()
+// }
 
 document.onkeydown = (e) => {
   // magic
