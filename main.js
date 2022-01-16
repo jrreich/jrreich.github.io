@@ -122,7 +122,18 @@ const reset = () => {
   state = JSON.parse(JSON.stringify(initialState));
   // make the first row
   makeNewRow(0);
-  // reset state
+  // reset parlayOdds
+  parlayOdds = 1 
+  const parlayOddsElement = document.getElementById("parlayOdds")
+  parlayOddsElement.innerHTML = "" 
+
+  // reset americanOddsInput
+  const americanOddsInputElement = document.getElementById("americanOddsInput")
+  americanOddsInputElement.value = ""
+  // reset impliedPercent
+  const impliedPercentElement = document.getElementById("impliedPercent")
+  impliedPercentElement.innerHTML = ""
+
   // update UI
   updateUI(state);
 };
@@ -209,7 +220,20 @@ const input = (char) => {
 
   let parlayOdds = 1 
 
+const handleAmOddsInputChange = () => {
+    // get value of AmericanOddsInput
+    var americanOddsInputElement = document.getElementById("americanOddsInput")
+    var impliedPercentElement = document.getElementById("impliedPercent")
+    const amOddsInput = americanOddsInputElement.value 
+    console.log(amOddsInput)
+    // Calculate probabilities
+    const probs = amerOddsToProb(amOddsInput)
+    console.log(probs) 
+    impliedPercentElement.innerHTML = (probs.percentOdds * 100).toFixed(1)
 
+
+    console.log('hey O ')
+}
 const submitOddsRow = () => {
     // all submitting actions
     
@@ -239,7 +263,6 @@ const submitOddsRow = () => {
                     // save odds row  
                     state.oddsInputs[index] = {"oddsRow": state.currentOddsRow, "nvo": oddsOut[0]}
                     parlayOdds = parlayOdds *  oddsOut[0]/100
-                    console.log(parlayOdds)
                     updateParleyOdds(parlayOdds)
 
     // Update ParleyOdds
@@ -252,7 +275,7 @@ const submitOddsRow = () => {
     //     // ...newState, 
     //     // currentRowIndex: state.currentRowIndex 
     // };
-    console.log(state)
+
     // 2. make a new row (this bumps state.currentRowIndex)
     state.currentRowIndex += 1;
     makeNewRow(state.currentRowIndex);

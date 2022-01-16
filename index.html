@@ -20,9 +20,10 @@
         </div> -->
       </div>
       <div class="oddsRow">
-        <input type="number" pattern="[0-9]*" class= "oddsInput" id="americanOddsInput"></input>
-        <div class="noVigOdds" id="evOutput"></div>
+        <input type="number" onchange="handleAmOddsInputChange()" pattern="[0-9]*" class= "oddsInput" id="americanOddsInput"></input>
+        <div class="noVigOdds" id="impliedPercent" ></div>
         <div class="noVigOdds" id="parlayOdds"></div>
+        <div class="noVigOdds" id="evOutput" ></div>
       </div>
       <div class="reset">
         <button onclick="reset()">reset</button>
