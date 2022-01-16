@@ -13,15 +13,16 @@
       <div class="actions">
         <div class="suggestBox">
           <button onclick="makeNewRow()">new</button>
-          <button onclick="useGenerator('eliminate')">Eliminate</button>
+          <!-- <button onclick="useGenerator('eliminate')">Eliminate</button> -->
         </div>
-        <div class="submitBox">
+        <!-- <div class="submitBox">
           <button onclick="submitStatus()">finalize</button>
-        </div>
+        </div> -->
       </div>
       <div class="oddsRow">
         <input type="number" pattern="[0-9]*" class= "oddsInput" id="americanOddsInput"></input>
         <div class="noVigOdds" id="evOutput"></div>
+        <div class="noVigOdds" id="parlayOdds"></div>
       </div>
       <div class="reset">
         <button onclick="reset()">reset</button>

@@ -79,7 +79,6 @@ const makeNoVigOddsRow = (index, nvoArray) => {
     const nvoString = `${nvoArray[0].toFixed(1)}`
     const oddsRowElement = getOddsRowElement(index)
     if (oddsRowElement) {
-        console.log("found oddsRowElement")
         var newNVO = document.createElement("div");
         newNVO.classList.add("noVigOdds")
         newNVO.innerHTML = nvoString
@@ -202,18 +201,14 @@ const input = (char) => {
     }
   };
 
+  const updateParleyOdds = (newParlayOdds) => {
+        var parlayOddsElement = document.getElementById("parlayOdds")
+        parlayOddsElement.innerHTML = (newParlayOdds * 100).toFixed(1)
 
-const parleyOddsReducer = (sum, element) => {
-    console.log(element.nvo)
-    return sum * element.nvo 
+  }
 
-}
+  let parlayOdds = 1 
 
-const makeParleyOdds = () => {
-    const parlayOdds = state.oddsInputs.reduce(parleyOddsReducer)
-    console.log(parlayOdds)
-    return parlayOdds
-}
 
 const submitOddsRow = () => {
     // all submitting actions
@@ -245,8 +240,11 @@ const submitOddsRow = () => {
                     
                     // save odds row  
                     state.oddsInputs[index] = {"oddsRow": state.currentOddsRow, "nvo": oddsOut[0]}
-                    const parlayOdds = makeParleyOdds()
+                    parlayOdds = parlayOdds *  oddsOut[0]/100
                     console.log(parlayOdds)
+                    updateParleyOdds(parlayOdds)
+
+    // Update ParleyOdds
     // console.log(state)
     // state = { ...initialState, 
     //     // ...state.currentOddsRow
