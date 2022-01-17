@@ -105,7 +105,7 @@ const makeNewRow = (index) => {
     for (var i = 0; i < 2; i++) {
         var newOddsInput = document.createElement("input");
         newOddsInput.classList.add("oddsInput");
-        newOddsInput.setAttribute("type", "tel")
+        newOddsInput.setAttribute("type", "number")
         // newOddsInput.setAttribute("pattern", "[0-9]*-")
         newOddsInput.setAttribute("id", `row-${index}-oddsInput-${i}`);
         newOddsInput.addEventListener("click", getClickedRow, false)
