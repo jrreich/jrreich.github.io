@@ -18,6 +18,11 @@ body {
     text-transform: uppercase;
     font-size: medium;
   }
+  .oddsRowHeader {
+    width: 4em;
+    font-size: 20px;
+    text-align: center;
+  }
   .oddsRow {
     padding: .5em;
     display: flex;
