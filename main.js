@@ -1,11 +1,12 @@
 // @ts-check
 
 let state = {};
+let parlayOdds = 1;
+
 const initialState = {
   currentRowIndex: 0,
   currentOddsIndex: 0,
   currentOddsRow: ["", ""],
-
   oddsInputs: [{"oddsRow": ["", ""], "nvo": 0}],
 
 };
@@ -32,15 +33,10 @@ const makeOdds = (arr) => {
     let sum = arr.reduce(function (a, b) {
         return a + b;
         }, 0);
-    
-    
     let impliedOdds = arr.map(num => {
         return num/sum * 100 
     })
-
     return impliedOdds 
-    
-    
 }
 
 const vigCalc = (a, b) => {
@@ -52,12 +48,7 @@ const checkOddsInput = (valueString) => {
     if (Object.is(value, NaN)) {
         alert(`couldn't parse odds input: ${valueString}`)
     } else {
-        // console.log(value)
-        
         const {decimalOdds, percentOdds} = amerOddsToProb(value)
-        // console.log(decimalOdds)
-        // console.log(percentOdds)
-        // return amerOddsToProb(value)
         return percentOdds
     }
 }
@@ -69,13 +60,10 @@ const getOddsRow = (index) => {
 }
 
 const checkOddsRow = (index) => {
-    // alert(row)
     const row = getOddsRow(index)
-
     const impliedProbs = row.map(checkOddsInput)
     const oddsSum = makeOdds(impliedProbs)
     return oddsSum
-
 }
 
 const getOddsRowElement = (i) => {
@@ -94,15 +82,9 @@ const makeNoVigOddsRow = (index, nvoArray) => {
         newNVO.innerHTML = nvoString
         oddsRowElement.appendChild(newNVO)
     }
-
-
-
-
 }
 
 const makeNewRow = (index) => {
-//   state.currentRowIndex = Number.isInteger(index) ? index : state.currentRowIndex + 1;
-    // add check to make sure you can add a new row
     state.currentOddsRow = ["", ""];
     state.currentOddsIndex = 0; 
     var newRow = document.createElement("div");
@@ -113,8 +95,6 @@ const makeNewRow = (index) => {
         newOddsInput.classList.add("oddsInput");
         newOddsInput.setAttribute("type", "number")
         newOddsInput.setAttribute("pattern", "[0-9]*")
-        // newOddsInput.addEventListener("click", inputOnselect)
-        // newOddsInput.setAttribute("onclick", `changeScore(${i})`);
         newOddsInput.setAttribute("id", `row-${index}-oddsInput-${i}`);
         newRow.appendChild(newOddsInput);
     }
@@ -140,6 +120,7 @@ const reset = () => {
   // reset americanOddsInput
   const americanOddsInputElement = document.getElementById("americanOddsInput")
   americanOddsInputElement.value = ""
+
   // reset impliedPercent
   const impliedPercentElement = document.getElementById("impliedPercent")
   impliedPercentElement.innerHTML = ""
@@ -180,7 +161,6 @@ const input = (char) => {
     const odds_index = state.currentOddsIndex;
     const odds_input = state.currentOddsRow[odds_index];
     
-  
     if (char) {
         if (char === "back") {
             // only use back if current word isn't empty
@@ -214,18 +194,13 @@ const input = (char) => {
             }
             updateUI(state);
         }
-
     }
   };
 
   const updateParleyOdds = (newParlayOdds) => {
         var parlayOddsElement = document.getElementById("parlayOdds")
         parlayOddsElement.innerHTML = (newParlayOdds * 100).toFixed(2)
-
   }
-
-let parlayOdds = 1 
-
 
 const evCalc = (fairWinProb, profOn100) => {
   const ev = fairWinProb*profOn100 - (1-fairWinProb)* 100; 
@@ -253,9 +228,7 @@ const submitOddsRow = () => {
     // 1. evaluate current odds row
     const index = state.currentRowIndex
     const row = state.currentOddsRow
-    console.log(row)
     const oddsOut = checkOddsRow(index)
-    console.log(oddsOut)
     if (~Object.is(oddsOut[0], NaN)) {
         makeNoVigOddsRow(index, oddsOut)
         state.oddsInputs[index] = {"oddsRow": state.currentOddsRow, "nvo": oddsOut[0]}
@@ -271,7 +244,7 @@ const submitOddsRow = () => {
 
 
 document.onkeydown = (e) => {
-  // magic
+    // magic
 
     var char = "";
     if (/^([0-9])/.test(e.key) && e.key.length === 1) {
@@ -285,8 +258,6 @@ document.onkeydown = (e) => {
         } else {
             char = "enter";
             }
-        // char = "enter";
-
     } else if (e.key === 'Tab') {
         char = "tab";
     } else if (e.key === '-') {
@@ -295,5 +266,4 @@ document.onkeydown = (e) => {
     input(char);
 };
 
-// reset application
 reset();
