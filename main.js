@@ -66,6 +66,17 @@ const checkOddsRow = (index) => {
     return oddsSum
 }
 
+const getClickedRow = (e) => {
+    const row = e.target.id.search("row-");
+    if (row === 0 ) {
+        const rowIndex = parseInt(e.target.id.slice(4,5));
+        state.currentRowIndex = rowIndex;
+        return rowIndex
+    } else {
+        return undefined
+    }
+}
+
 const getOddsRowElement = (i) => {
     const oddsRowId = `oddsRow-${i}`
     var oddsRow = document.getElementById(oddsRowId)
@@ -80,6 +91,7 @@ const makeNoVigOddsRow = (index, nvoArray) => {
         var newNVO = document.createElement("div");
         newNVO.classList.add("noVigOdds")
         newNVO.innerHTML = nvoString
+        
         oddsRowElement.appendChild(newNVO)
     }
 }
@@ -96,6 +108,7 @@ const makeNewRow = (index) => {
         newOddsInput.setAttribute("type", "number")
         newOddsInput.setAttribute("pattern", "[0-9]*")
         newOddsInput.setAttribute("id", `row-${index}-oddsInput-${i}`);
+        newOddsInput.addEventListener("click", getClickedRow, false)
         newRow.appendChild(newOddsInput);
     }
     document.getElementById("oddsInputContainer").appendChild(newRow);
@@ -227,7 +240,6 @@ const submitOddsRow = () => {
     
     // 1. evaluate current odds row
     const index = state.currentRowIndex
-    const row = state.currentOddsRow
     const oddsOut = checkOddsRow(index)
     if (~Object.is(oddsOut[0], NaN)) {
         makeNoVigOddsRow(index, oddsOut)
