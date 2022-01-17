@@ -112,7 +112,6 @@ const makeNewRow = (index) => {
         newRow.appendChild(newOddsInput);
     }
     document.getElementById("oddsInputContainer").appendChild(newRow);
-
 };
 
 const reset = () => {
@@ -137,6 +136,11 @@ const reset = () => {
   // reset impliedPercent
   const impliedPercentElement = document.getElementById("impliedPercent")
   impliedPercentElement.innerHTML = ""
+
+  // reset eV
+  const evElement = document.getElementById("evOutput")
+  evElement.innerHTML = ""
+  updateEvColor(0)
 
   // update UI
   updateUI(state);
@@ -232,8 +236,32 @@ const handleAmOddsInputChange = () => {
 
     const ev = evCalc(parlayOdds, probs.profitOn100)
     evOutputElement.innerHTML = ev.toFixed(2) 
+    updateEvColor(ev)
+
 
     
+}
+
+const makeEvColor = (evValue) => {
+    let evBgColor = "gray"
+    if (evValue === 0) {
+        evBgColor = "gray"
+    } else if (evValue < 0) {
+        evBgColor = "red"
+    } else if (evValue < 3) {
+        evBgColor = "yellow"
+    } else if (evValue < 6) {
+        evBgColor = "lightgreen"
+    } else if (evValue >= 6) {
+        evBgColor = "green"
+    }
+    return evBgColor
+}
+
+const updateEvColor = (evValue) => {
+    const evBgColor = makeEvColor(evValue) 
+    const evElement = document.getElementById("evOutput")
+    evElement.style.backgroundColor = evBgColor;
 }
 const submitOddsRow = () => {
     // all submitting actions
