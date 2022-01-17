@@ -63,12 +63,9 @@ const checkOddsInput = (valueString) => {
 }
 
 const checkOddsRow = (row) => {
-    // row.forEach(checkOddsInput);
+    alert(row)
     const impliedProbs = row.map(checkOddsInput)
-    // console.log(impliedProbs)
     const oddsSum = makeOdds(impliedProbs)
-    // console.log(oddsSum)
-
     return oddsSum
 
 }
