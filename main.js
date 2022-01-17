@@ -62,8 +62,16 @@ const checkOddsInput = (valueString) => {
     }
 }
 
-const checkOddsRow = (row) => {
-    alert(row)
+const getOddsRow = (index) => {
+    const firstOdds = document.getElementById(`row-${index}-oddsInput-0`).value
+    const secondOdds = document.getElementById(`row-${index}-oddsInput-1`).value
+    return [firstOdds, secondOdds]
+}
+
+const checkOddsRow = (index) => {
+    // alert(row)
+    const row = getOddsRow(index)
+
     const impliedProbs = row.map(checkOddsInput)
     const oddsSum = makeOdds(impliedProbs)
     return oddsSum
@@ -244,7 +252,9 @@ const submitOddsRow = () => {
     
     // 1. evaluate current odds row
     const index = state.currentRowIndex
-    const oddsOut = checkOddsRow(state.currentOddsRow)
+    const row = state.currentOddsRow
+    console.log(row)
+    const oddsOut = checkOddsRow(index)
     console.log(oddsOut)
     if (~Object.is(oddsOut[0], NaN)) {
         makeNoVigOddsRow(index, oddsOut)
