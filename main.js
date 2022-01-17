@@ -50,7 +50,7 @@ const vigCalc = (a, b) => {
 const checkOddsInput = (valueString) => {
     const value = parseInt(valueString)
     if (Object.is(value, NaN)) {
-        alert("couldn't parse odds input")
+        alert(`couldn't parse odds input: ${valueString}`)
     } else {
         // console.log(value)
         
